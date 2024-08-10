@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event-Based Story Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 600px; }
+        #controls { margin: 20px; }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <button onclick="showEvent('event1')">Show Event 1</button>
+        <button onclick="showEvent('event2')">Show Event 2</button>
+        <button onclick="showEvent('event3')">Show Event 3</button>
+        <button onclick="showEvent('event4')">Show Event 4</button>
+        <button onclick="showEvent('event5')">Show Event 5</button>
+    </div>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([51.505, -0.09], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data © OpenStreetMap contributors'
+        }).addTo(map);
+
+        var events = {
+            event1: {
+                lat: 51.505,
+                lon: -0.09,
+                title: 'Event 1',
+                description: 'Details about Event 1.'
+            },
+            event2: {
+                lat: 51.51,
+                lon: -0.1,
+                title: 'Event 2',
+                description: 'Details about Event 2.'
+            },
+            event3: {
+                lat: 51.52,
+                lon: -0.08,
+                title: 'Event 3',
+                description: 'Details about Event 3.'
+            },
+            event4: {
+                lat: 51.49,
+                lon: -0.12,
+                title: 'Event 4',
+                description: 'Details about Event 4.'
+            },
+            event5: {
+                lat: 51.48,
+                lon: -0.11,
+                title: 'Event 5',
+                description: 'Details about Event 5.'
+            }
+        };
+
+        function showEvent(eventKey) {
+            var event = events[eventKey];
+            if (event) {
+                L.marker([event.lat, event.lon])
+                    .addTo(map)
+                    .bindPopup('<b>' + event.title + '</b><br>' + event.description);
+                map.setView([event.lat, event.lon], 13);
+            }
+        }
+    </script>
+</body>
+</html>
